@@ -1,10 +1,12 @@
-import {Component} from 'react'
+import {useContext} from 'react'
 
 import {Link, withRouter} from 'react-router-dom'
 
 import Cookies from 'js-cookie'
 
 import Popup from 'reactjs-popup'
+
+import WatchContext from '../../context/WatchContext'
 
 import {
   HeaderContainer,
@@ -19,59 +21,71 @@ import {
   ConfirmButton,
   CancelButton,
   ButtonContainer,
-  ThemeButton
+  ThemeButton,
+  StyledLightMode,
 } from './styled'
 
-class Header extends Component {
-  onClickConfirm = () => {
+const Header = props => {
+  const {history} = props
+
+  const onClickConfirm = () => {
     Cookies.remove('jwt_token')
-    const {history} = this.props
     history.replace('/login')
   }
 
-  render() {
-    return (
-      <HeaderContainer>
-        <Link to="/">
-          <LogoImage
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-            alt="website logo"
-          ></LogoImage>
-        </Link>
-        <LogoutContainer>
-          <ThemeButton>
-            <StyledFaMoon data-testid="theme"></StyledFaMoon>
-          </ThemeButton>
-          <ProfileImage
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
-            alt="profile"
-          ></ProfileImage>
-          <PopupContainer>
-            <Popup
-              trigger={<LogoutButton type="button">Logout</LogoutButton>}
-              modal
-            >
-              {close => (
-                <PopupSubContainer>
-                  <div>
-                    <PopupPara>Are you sure, you want to logout?</PopupPara>
-                  </div>
-                  <ButtonContainer>
-                    <CancelButton type="button" onClick={() => close()}>
-                      Cancel
-                    </CancelButton>
-                    <ConfirmButton type="button" onClick={this.onClickConfirm}>
-                      Confirm
-                    </ConfirmButton>
-                  </ButtonContainer>
-                </PopupSubContainer>
-              )}
-            </Popup>
-          </PopupContainer>
-        </LogoutContainer>
-      </HeaderContainer>
-    )
+  const {theme, setTheme} = useContext(WatchContext)
+
+  const onChangeTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light')
   }
+
+  const logo =
+    theme === 'light'
+      ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+      : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+
+  return (
+    <HeaderContainer change={theme}>
+      <Link to="/">
+        <LogoImage src={logo} alt="website logo" />
+      </Link>
+      <LogoutContainer>
+        <ThemeButton data-testid="theme" onClick={onChangeTheme}>
+          {theme === 'dark' ? (
+            <StyledLightMode />
+          ) : (
+            <StyledFaMoon />
+          )}
+        </ThemeButton>
+        <ProfileImage
+          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
+          alt="profile"
+         />
+        <PopupContainer>
+          <Popup
+            trigger={<LogoutButton type="button">Logout</LogoutButton>}
+            modal
+          >
+            {close => (
+              <PopupSubContainer>
+                <div>
+                  <PopupPara>Are you sure, you want to logout?</PopupPara>
+                </div>
+                <ButtonContainer>
+                  <CancelButton type="button" onClick={() => close()}>
+                    Cancel
+                  </CancelButton>
+                  <ConfirmButton type="button" onClick={onClickConfirm}>
+                    Confirm
+                  </ConfirmButton>
+                </ButtonContainer>
+              </PopupSubContainer>
+            )}
+          </Popup>
+        </PopupContainer>
+      </LogoutContainer>
+    </HeaderContainer>
+  )
 }
 
 export default withRouter(Header)

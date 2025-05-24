@@ -2,46 +2,39 @@ import styled from 'styled-components'
 
 import {Link} from 'react-router-dom'
 
-export const VideoListItem = styled.li`
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 31%;
-  margin: 10px;
-  height: 53vh;
-`
-
-export const ThumbnailImage = styled.img`
-  width: 100%;
-`
-
-export const VideoContentContainer = styled.div`
+export const VideoContainer = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  list-style-type: none;
 `
 
-export const VideoDetailsContainer = styled.div`
-  width: 85%;
+export const VideoImage = styled.img`
+  width: 45%;
 `
 
-export const ProfileImage = styled.img`
-  width: 10%;
-  align-self: flex-start;
-  margin-top: 30px;
+export const VideoContentContainer = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100%;
 `
 
 export const TitlePara = styled.p`
+  color: ${props => (props.change === 'light' ? '#1e293b' : '#ffffff')};
   font-size: 19px;
   font-weight: bold;
-  color: ${props => (props.change === 'light' ? '#1e293b' : '#ffffff')};
+  // align-self: flex-start;
 `
 
 export const ChannelName = styled.p`
   color: #64748b;
   margin-bottom: 5px;
+  align-self: flex-start;
 `
 
 export const ViewsCountContainer = styled.div`
@@ -50,6 +43,8 @@ export const ViewsCountContainer = styled.div`
   align-items: center;
   padding: 0px 20px 0px 0px;
   margin-top: 0px;
+  align-self: flex-start;
+  width: 50%;
 `
 
 export const ViewsPara = styled.p`

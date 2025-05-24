@@ -1,14 +1,18 @@
-import {Component} from 'react'
-
-import ReactPlayer from 'react-player'
+import {useState, useEffect, useContext} from 'react'
 
 import Loader from 'react-loader-spinner'
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
 import Cookies from 'js-cookie'
 
+import ReactPlayer from 'react-player'
+
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+
 import Header from '../Header'
+
 import LeftNavbar from '../LeftNavbar'
+
+import WatchContext from '../../context/WatchContext'
 
 import {
   HomeContainer,
@@ -37,6 +41,14 @@ import {
   ChannelSubs,
   ChannelDescription,
   LoaderContainer,
+  LikeButton,
+  DislikeButton,
+  SaveButton,
+  FailureContainer,
+  FailureImage,
+  FailureHeading,
+  FailurePara,
+  RetryButton,
 } from './styled'
 
 const apiStatusConstants = {
@@ -45,16 +57,52 @@ const apiStatusConstants = {
   inprogress: 'IN_PROGRESS',
 }
 
-class VideoDetailItem extends Component {
-  state = {apiStatus: apiStatusConstants.inprogress}
+const VideoDetailItem = props => {
+  const [isLike, setIsLike] = useState(false)
 
-  componentDidMount() {
-    this.renderVideoApi()
+  const [isDislike, setIsDislike] = useState(false)
+
+  const [apiStatus, setApiStatus] = useState(apiStatusConstants.inprogress)
+
+  const [videoItemList, setVideoItemList] = useState({})
+
+  const {theme, savedVideos, setSavedVideos} = useContext(WatchContext)
+
+  const [isSaved, setIsSaved] = useState(false)
+
+  const failureImage =
+    theme === 'light'
+      ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
+      : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
+
+  const onClickLike = () => {
+    setIsLike(prevState => !prevState)
+    setIsDislike(false)
   }
 
-  renderVideoApi = async () => {
+  const onClickDislike = () => {
+    setIsDislike(prevState => !prevState)
+    setIsLike(false)
+  }
+
+  const onClickSave = () => {
+    const isAlreadySaved = savedVideos.some(
+      video => video.id === videoItemList.id,
+    )
+    console.log(isAlreadySaved)
+
+    if (!isAlreadySaved) {
+      setSavedVideos([...savedVideos, videoItemList])
+      setIsSaved(true)
+    } else {
+      setSavedVideos(savedVideos.filter(video => video.id !== videoItemList.id))
+      setIsSaved(false)
+    }
+  }
+
+  const renderVideoApi = async () => {
     const jwtToken = Cookies.get('jwt_token')
-    const {match} = this.props
+    const {match} = props
     const {params} = match
     const {id} = params
     const apiUrl = `https://apis.ccbp.in/videos/${id}`
@@ -81,101 +129,139 @@ class VideoDetailItem extends Component {
         description: data.video_details.description,
         videoUrl: data.video_details.video_url,
       }
-      console.log(data)
-      this.setState({
-        videoItemList: updatedData,
-        apiStatus: apiStatusConstants.success,
-      })
+      setVideoItemList(updatedData)
+
+      const isAlreadySaved = savedVideos.some(
+        video => video.id === updatedData.id,
+      )
+      setIsSaved(isAlreadySaved)
+
+      setApiStatus(apiStatusConstants.success)
     } else {
-      this.setState({apiStatus: apiStatusConstants.failure})
+      setApiStatus(apiStatusConstants.failure)
     }
   }
 
-  renderSuccessView = () => {
-    const {videoItemList} = this.state
+  useEffect(() => {
+    renderVideoApi()
+  })
+
+  const onClickRetry = () => {
+    renderVideoApi()
+  }
+
+  const renderSuccessView = () => {
+    console.log(savedVideos)
     const {
       channel,
-      id,
       publishedAt,
-      thumbnailUrl,
       title,
       viewCount,
       description,
       videoUrl,
     } = videoItemList
+
+    const saveText = isSaved ? 'Saved' : 'Save'
+
     return (
-      <VideoDetailContainer>
+      <VideoDetailContainer change={theme}>
         <PlayerContainer>
           <ReactPlayer url={videoUrl} width="100%" height="80vh" />
         </PlayerContainer>
-        <TitleItem>{title}</TitleItem>
+        <TitleItem change={theme}>{title}</TitleItem>
         <ViewsLikesContainer>
           <ViewsContainer>
-            <ViewItem>{viewCount} Views</ViewItem>
-            <PublishItem>{publishedAt}</PublishItem>
+            <ViewItem change={theme}>{viewCount} Views</ViewItem>
+            <PublishItem change={theme}>{publishedAt}</PublishItem>
           </ViewsContainer>
           <LikesContainer>
             <LikeItem>
-              <LikeIcon></LikeIcon>Like
+              <LikeIcon change={isLike} />
+              <LikeButton type="button" onClick={onClickLike} change={isLike}>
+                Like
+              </LikeButton>
             </LikeItem>
             <DisLikeItem>
-              <DisLikeIcon></DisLikeIcon>Dislike
+              <DisLikeIcon change={isDislike} />
+              <DislikeButton
+                type="button"
+                onClick={onClickDislike}
+                change={isDislike}
+              >
+                Dislike
+              </DislikeButton>
             </DisLikeItem>
             <SavedItem>
-              <SavedIcon></SavedIcon>Saved
+              <SavedIcon change={isSaved} />
+              <SaveButton type="button" onClick={onClickSave} change={isSaved}>
+                {saveText}
+              </SaveButton>
             </SavedItem>
           </LikesContainer>
         </ViewsLikesContainer>
-        <LineThrough></LineThrough>
+        <LineThrough />
         <ChannelContainer>
           <ProfileImage
             src={channel.profileImageUrl}
-            alt={channel.name}
-          ></ProfileImage>
+            alt="channel logo"
+           />
           <ChannelContentContainer>
-            <ChannelName>{channel.name}</ChannelName>
-            <ChannelSubs>{channel.subscriberCount} Subscribers</ChannelSubs>
-            <ChannelDescription>{description}</ChannelDescription>
+            <ChannelName change={theme}>{channel.name}</ChannelName>
+            <ChannelSubs change={theme}>
+              {channel.subscriberCount} Subscribers
+            </ChannelSubs>
+            <ChannelDescription change={theme}>
+              {description}
+            </ChannelDescription>
           </ChannelContentContainer>
         </ChannelContainer>
       </VideoDetailContainer>
     )
   }
 
-  renderLoader = () => (
+  const renderLoader = () => (
     <LoaderContainer data-testid="loader">
       <Loader type="ThreeDots" color="#4f46e5" height="50" width="50" />
     </LoaderContainer>
   )
 
-  renderContent = () => {
-    const {apiStatus} = this.state
+  const renderFailureView = () => (
+    <FailureContainer>
+      <FailureImage src={failureImage} alt="failure view" />
+      <FailureHeading change={theme}>Oops! Something Went Wrong</FailureHeading>
+      <FailurePara change={theme}>
+        We are having some trouble to complete your request. Please try again.
+      </FailurePara>
+      <RetryButton onClick={onClickRetry}>Retry</RetryButton>
+    </FailureContainer>
+  )
+
+  const renderContent = () => {
     switch (apiStatus) {
       case apiStatusConstants.success:
-        return this.renderSuccessView()
+        return renderSuccessView()
+      case apiStatusConstants.failure:
+        return renderFailureView()
       case apiStatusConstants.inprogress:
-        return this.renderLoader()
+        return renderLoader()
       default:
         return null
     }
   }
 
-  render() {
-    console.log('Deepu')
-    return (
-      <HomeContainer data-testid="home">
-        <HomeHeaderContainer>
-          <Header />
-        </HomeHeaderContainer>
-        <ContentContainer>
-          <NavContainer>
-            <LeftNavbar />
-          </NavContainer>
-          {this.renderContent()}
-        </ContentContainer>
-      </HomeContainer>
-    )
-  }
+  return (
+    <HomeContainer data-testid="videoItemDetails" change={theme}>
+      <HomeHeaderContainer change={theme}>
+        <Header />
+      </HomeHeaderContainer>
+      <ContentContainer>
+        <NavContainer>
+          <LeftNavbar />
+        </NavContainer>
+        {renderContent()}
+      </ContentContainer>
+    </HomeContainer>
+  )
 }
 
 export default VideoDetailItem

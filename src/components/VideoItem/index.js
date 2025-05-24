@@ -1,3 +1,7 @@
+import {useContext} from 'react'
+
+import WatchContext from '../../context/WatchContext'
+
 import {
   VideoListItem,
   ThumbnailImage,
@@ -13,23 +17,31 @@ import {
 } from './styled'
 
 const VideoItem = props => {
+  const {theme} = useContext(WatchContext)
+
   const {videoDetails} = props
-  const {channel, id, thumbnailUrl, viewCount, publishedAt, title} =
-    videoDetails
+  const {
+    channel,
+    id,
+    thumbnailUrl,
+    viewCount,
+    publishedAt,
+    title,
+  } = videoDetails
   return (
     <VideoListItem>
       <LinkItem to={`/videos/${id}`}>
         <ThumbnailImage
           src={thumbnailUrl}
           alt="video thumbnail"
-        ></ThumbnailImage>
+         />
         <VideoContentContainer>
           <ProfileImage
             src={channel.profileImageUrl}
             alt="channel logo"
-          ></ProfileImage>
+           />
           <VideoDetailsContainer>
-            <TitlePara>{title}</TitlePara>
+            <TitlePara change={theme}>{title}</TitlePara>
             <ChannelName>{channel.name}</ChannelName>
             <ViewsCountContainer>
               <ViewsPara>{viewCount} Views</ViewsPara>

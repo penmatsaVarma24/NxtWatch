@@ -1,8 +1,8 @@
-import {Component} from 'react'
-
-import {Link} from 'react-router-dom'
+import {useContext} from 'react'
 
 import Footer from '../Footer'
+
+import WatchContext from '../../context/WatchContext'
 
 import {
   LeftNavbarContainer,
@@ -17,42 +17,42 @@ import {
   NavbarFooterContainer,
 } from './styled'
 
-class LeftNavbar extends Component {
-  render() {
-    return (
-      <LeftNavbarContainer>
-        <RouteListContainer>
-          <ListItem>
-            <LinkItem to="/">
-              <StyledMdHome></StyledMdHome>
-              <RoutePara>Home</RoutePara>
-            </LinkItem>
-          </ListItem>
-          <ListItem>
-            <LinkItem to="/trending">
-              <StyledFaFire></StyledFaFire>
-              <RoutePara>Trending</RoutePara>
-            </LinkItem>
-          </ListItem>
-          <ListItem>
-            <LinkItem to="/gaming">
-              <StyledFaGamepad></StyledFaGamepad>
-              <RoutePara>Gaming</RoutePara>
-            </LinkItem>
-          </ListItem>
-          <ListItem>
-            <LinkItem to="/saved-videos">
-              <StyledFaFolderPlus></StyledFaFolderPlus>
-              <RoutePara>Saved Videos</RoutePara>
-            </LinkItem>
-          </ListItem>
-        </RouteListContainer>
-        <NavbarFooterContainer>
-          <Footer />
-        </NavbarFooterContainer>
-      </LeftNavbarContainer>
-    )
-  }
+const LeftNavbar = () => {
+  const {theme} = useContext(WatchContext)
+
+  return (
+    <LeftNavbarContainer>
+      <RouteListContainer>
+        <ListItem>
+          <LinkItem to="/">
+            <StyledMdHome change={theme} />
+            <RoutePara change={theme}>Home</RoutePara>
+          </LinkItem>
+        </ListItem>
+        <ListItem>
+          <LinkItem to="/trending">
+            <StyledFaFire change={theme} />
+            <RoutePara change={theme}>Trending</RoutePara>
+          </LinkItem>
+        </ListItem>
+        <ListItem>
+          <LinkItem to="/gaming">
+            <StyledFaGamepad change={theme} />
+            <RoutePara change={theme}>Gaming</RoutePara>
+          </LinkItem>
+        </ListItem>
+        <ListItem>
+          <LinkItem to="/saved-videos">
+            <StyledFaFolderPlus change={theme} />
+            <RoutePara change={theme}>Saved Videos</RoutePara>
+          </LinkItem>
+        </ListItem>
+      </RouteListContainer>
+      <NavbarFooterContainer>
+        <Footer />
+      </NavbarFooterContainer>
+    </LeftNavbarContainer>
+  )
 }
 
 export default LeftNavbar

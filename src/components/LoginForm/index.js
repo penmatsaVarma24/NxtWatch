@@ -28,10 +28,8 @@ class LoginForm extends Component {
 
   onSubmitForm = async event => {
     event.preventDefault()
-    console.log('submitForm')
     const {username, password} = this.state
     const userDetails = {username, password}
-    console.log(userDetails)
     const apiUrl = 'https://apis.ccbp.in/login'
     const options = {
       method: 'POST',
@@ -42,15 +40,17 @@ class LoginForm extends Component {
     if (response.ok) {
       this.renderSubmitSuccess(data.jwt_token)
     } else {
+      console.log(data)
       this.renderSubmitFailure(data.error_msg)
     }
+    // this.setState({username: '', password: ''})
   }
 
   renderSubmitFailure = errMsg => {
-    this.setState(prevState => ({
+    this.setState({
       errorMsg: errMsg,
       showErrorMsg: true,
-    }))
+    })
   }
 
   renderSubmitSuccess = jwtToken => {
@@ -64,9 +64,9 @@ class LoginForm extends Component {
   }
 
   onChangeUsername = event => {
-    this.setState(prevState => ({
+    this.setState({
       username: event.target.value,
-    }))
+    })
   }
 
   onChangePassword = event => {
@@ -74,18 +74,25 @@ class LoginForm extends Component {
   }
 
   render() {
-    const {username, password, hidePassword, errorMsg, showErrorMsg} =
-      this.state
+    const {
+      username,
+      password,
+      hidePassword,
+      errorMsg,
+      showErrorMsg,
+    } = this.state
     const passwordType = hidePassword ? 'password' : 'text'
     const jwtToken = Cookies.get('jwt_token')
-    console.log(jwtToken)
     if (jwtToken !== undefined) {
       return <Redirect to="/" />
     }
     return (
       <LoginContainer>
         <FormContainer onSubmit={this.onSubmitForm}>
-          <LogoImage src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"></LogoImage>
+          <LogoImage
+            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+            alt="website logo"
+           />
           <Label htmlFor="username">USERNAME</Label>
           <Input
             id="username"
@@ -93,7 +100,7 @@ class LoginForm extends Component {
             type="text"
             value={username}
             onChange={this.onChangeUsername}
-          ></Input>
+           />
           <Label htmlFor="password">PASSWORD</Label>
           <Input
             id="password"
@@ -101,14 +108,14 @@ class LoginForm extends Component {
             type={passwordType}
             value={password}
             onChange={this.onChangePassword}
-          ></Input>
+           />
           <CheckContainer>
             <CheckInput
-              id="text"
+              id="showpassword"
               placeholder="showpassword"
               type="checkbox"
               onClick={this.onClickCheckbox}
-            ></CheckInput>
+             />
             <CheckLabel htmlFor="showpassword">Show Password</CheckLabel>
           </CheckContainer>
           <LoginButton type="submit">Login</LoginButton>
