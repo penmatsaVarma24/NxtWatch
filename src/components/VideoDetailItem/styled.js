@@ -16,29 +16,40 @@ export const ContentContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 80px;
+  margin-top: 65px;
 `
 
 export const VideoDetailContainer = styled.div`
-  min-height: 90vh;
-  width: 80%;
-  margin-left: 300px;
   background-color: ${props =>
-    props.change === 'light' ? '#ffffff' : '#0f0f0f'};
+    props.change === 'light' ? '#f1f1f1' : '#181818'};
   margin-top: 4px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
+  @media (min-width: 768px) {
+    min-height: 100vh;
+    width: 80%;
+    margin-left: 20%;
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `
 
-// background-color: #f1f1f1;
-
 export const NavContainer = styled.div`
-  min-height: 92%;
-  width: 20%;
-  position: fixed;
-  left: 0;
+  @media (min-width: 768px) {
+    min-height: 92%;
+    width: 20%;
+    position: fixed;
+    left: 0;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 export const HomeHeaderContainer = styled.div`
@@ -67,24 +78,47 @@ export const TitleItem = styled.p`
 `
 
 export const ViewsLikesContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 90%;
+  display: flex;
+
+  @media (min-width: 768px) {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 `
 
 export const ViewsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 20%;
+
+  @media (min-width: 1200px) {
+    width: 30%;
+  }
+
+  @media (max-width: 1199px) {
+    width: 42%;
+  }
 `
 
 export const LikesContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 30%;
+
+  @media (min-width: 1200px) {
+    width: 30%;
+  }
+
+  @media (max-width: 1199px) {
+    width: 53%;
+  }
 `
 
 export const LikeItem = styled.p`
@@ -134,16 +168,46 @@ export const LineThrough = styled.hr`
 `
 
 export const ChannelContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 90%;
   padding: 20px 5px 20px 5px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`
+
+// @media (min-width: 768px) {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     align-items: center;
+//   }
+
+//   @media (max-width: 767px) {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     align-items: center;
+//   }
+
+export const ChannelSubContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 export const ProfileImage = styled.img`
-  width: 5%;
+  margin-right: 15px;
+
+  @media (max-width: 767px) {
+    width: 10%;
+  }
+
+  @media (min-width: 768px) {
+    width: 10%;
+  }
 `
 
 export const ChannelContentContainer = styled.div`
@@ -161,8 +225,25 @@ export const ChannelSubs = styled.p`
 `
 
 export const ChannelDescription = styled.p`
-  color: #212121;
+  @media (min-width: 768px) {
+    color: ${props => (props.change === 'light' ? '#1e293b' : ' #94a3b8')};
+  }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+`
+
+export const ChannelSmallDescription = styled.p`
   color: ${props => (props.change === 'light' ? '#1e293b' : ' #94a3b8')};
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    color: ${props => (props.change === 'light' ? '#1e293b' : ' #94a3b8')};
+  }
 `
 
 export const LoaderContainer = styled.div`
@@ -214,10 +295,12 @@ export const FailureContainer = styled.div`
 
 export const FailureHeading = styled.h1`
   color: ${props => (props.change === 'light' ? '#212121' : '#ffffff')};
+  text-align: center;
 `
 
 export const FailurePara = styled.p`
   color: ${props => (props.change === 'light' ? '#212121' : '#ffffff')};
+  text-align: center;
 `
 
 export const RetryButton = styled.button`

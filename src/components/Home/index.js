@@ -124,7 +124,7 @@ const Home = () => {
       <NoSearchImage
         src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
         alt="no videos"
-       />
+      />
       <NoSearchHeading change={theme}>No Search results found</NoSearchHeading>
       <NoSearchParagraph change={theme}>
         Try different key words or remove search filter
@@ -198,7 +198,7 @@ const Home = () => {
                 <BannerLogo
                   src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
                   alt="nxt watch logo"
-                 />
+                />
                 <BannerDescription>
                   Buy Nxt Watch Premium prepaid plans with UPI
                 </BannerDescription>
@@ -215,7 +215,7 @@ const Home = () => {
               placeholder="Search"
               onChange={onChangeSearchInput}
               value={searchInput}
-             />
+            />
             <SearchButton
               type="button"
               onClick={onClickSearch}

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 import {MdHome} from 'react-icons/md'
 
@@ -57,17 +57,17 @@ export const ListItem = styled.li`
   justify-content: flex-start;
   align-items: center;
   padding-left: 20px;
-  margin: 0px;
+  margin-top: 10px;
   cursor: pointer;
 `
 
 export const RoutePara = styled.p`
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   color: ${props => (props.change === 'light' ? 'black' : '#f4f4f4')};
 `
 
-export const LinkItem = styled(Link)`
+export const LinkItem = styled(NavLink)`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -75,6 +75,12 @@ export const LinkItem = styled(Link)`
   width: 100%;
   text-decoration: none;
   color: #231f20;
+  border-radius: 10px;
+
+  &.active {
+    background-color: ${props =>
+      props.change === 'light' ? '#d0def5' : '#403e37'};
+  }
 `
 export const NavbarFooterContainer = styled.div`
   justify-self: flex-end;

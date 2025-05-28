@@ -3,14 +3,25 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
 export const VideoListItem = styled.li`
-  list-style-type: none;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 31%;
-  margin: 10px;
-  height: 53vh;
+
+  @media (min-width: 768px) {
+    list-style-type: none;
+    width: 30%;
+    margin: 10px;
+  }
+
+  @media (max-width: 575px) {
+    width: 100%;
+  }
+
+  @media (min-width: 576px) and (max-width: 767px) {
+    width: 48%;
+    gap: 10px;
+  }
 `
 
 export const ThumbnailImage = styled.img`
@@ -40,8 +51,24 @@ export const TitlePara = styled.p`
 `
 
 export const ChannelName = styled.p`
-  color: #64748b;
-  margin-bottom: 5px;
+  @media (min-width: 576px) {
+    color: #64748b;
+    margin-bottom: 5px;
+  }
+
+  @media (max-width: 575px) {
+    display: none;
+  }
+`
+
+export const ChannelSmallName = styled.p`
+  @media (min-width: 576px) {
+    display: none;
+  }
+
+  @media (max-width: 575px) {
+    color: #64748b;
+  }
 `
 
 export const ViewsCountContainer = styled.div`

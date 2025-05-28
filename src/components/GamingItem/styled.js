@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 export const VideoContainer = styled.li`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   margin-bottom: 20px;
   list-style-type: none;
@@ -27,13 +27,16 @@ export const TitlePara = styled.p`
   color: ${props => (props.change === 'light' ? '#1e293b' : '#ffffff')};
   font-size: 19px;
   font-weight: bold;
-  margin-bottom: 5px;
+
+  @media (max-width: 767px) {
+    height: 5vh;
+  }
 `
 
 export const ViewsCountContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 0px 20px 0px 0px;
   margin-top: 0px;
 `
@@ -46,9 +49,16 @@ export const ViewsPara = styled.p`
 
 export const LinkItem = styled(Link)`
   text-decoration: none;
-  width: 33%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
+
+  @media (max-width: 575px) {
+    width: 48%;
+  }
+
+  @media (min-width: 576px) {
+    width: 33%;
+  }
 `

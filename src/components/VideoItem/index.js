@@ -14,6 +14,7 @@ import {
   ViewsPara,
   PublishPara,
   LinkItem,
+  ChannelSmallName,
 } from './styled'
 
 const VideoItem = props => {
@@ -31,19 +32,14 @@ const VideoItem = props => {
   return (
     <VideoListItem>
       <LinkItem to={`/videos/${id}`}>
-        <ThumbnailImage
-          src={thumbnailUrl}
-          alt="video thumbnail"
-         />
+        <ThumbnailImage src={thumbnailUrl} alt="video thumbnail" />
         <VideoContentContainer>
-          <ProfileImage
-            src={channel.profileImageUrl}
-            alt="channel logo"
-           />
+          <ProfileImage src={channel.profileImageUrl} alt="channel logo" />
           <VideoDetailsContainer>
             <TitlePara change={theme}>{title}</TitlePara>
             <ChannelName>{channel.name}</ChannelName>
             <ViewsCountContainer>
+              <ChannelSmallName>{channel.name}</ChannelSmallName>
               <ViewsPara>{viewCount} Views</ViewsPara>
               <PublishPara>{publishedAt}</PublishPara>
             </ViewsCountContainer>

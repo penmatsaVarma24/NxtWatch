@@ -12,14 +12,21 @@ export const ContentContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 80px;
+  margin-top: 65px;
 `
 
 export const NavContainer = styled.div`
-  min-height: 90vh;
-  width: 20%;
-  position: fixed;
-  left: 0;
+  @media (min-width: 768px) {
+    min-height: 90vh;
+    width: 20%;
+    position: fixed;
+    left: 0;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 export const NotFoundHeaderContainer = styled.div`
@@ -36,16 +43,23 @@ export const NotFoundHeaderContainer = styled.div`
 `
 
 export const SearchContainer = styled.div`
-  min-height: 130vh;
-  width: 80%;
-  margin-left: 300px;
   background-color: ${props =>
-    props.change === 'light' ? '#ffffff' : '#181818'};
+    props.change === 'light' ? '#f1f1f1' : '#181818'};
   margin-top: 4px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    min-height: 100vh;
+    width: 80%;
+    margin-left: 20%;
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 export const NotFoundContainer = styled.div`
@@ -69,4 +83,5 @@ export const NotFoundHeading = styled.h1`
 
 export const NotFoundPara = styled.p`
   color: ${props => (props.change === 'light' ? '#212121' : '#ffffff')};
+  text-align: center;
 `

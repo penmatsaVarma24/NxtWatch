@@ -49,6 +49,8 @@ import {
   FailureHeading,
   FailurePara,
   RetryButton,
+  ChannelSmallDescription,
+  ChannelSubContainer,
 } from './styled'
 
 const apiStatusConstants = {
@@ -69,6 +71,8 @@ const VideoDetailItem = props => {
   const {theme, savedVideos, setSavedVideos} = useContext(WatchContext)
 
   const [isSaved, setIsSaved] = useState(false)
+
+  const playerHeight = window.innerWidth <= 1200 ? '40vh' : '80vh'
 
   const failureImage =
     theme === 'light'
@@ -144,7 +148,7 @@ const VideoDetailItem = props => {
 
   useEffect(() => {
     renderVideoApi()
-  })
+  }, [])
 
   const onClickRetry = () => {
     renderVideoApi()
@@ -166,7 +170,7 @@ const VideoDetailItem = props => {
     return (
       <VideoDetailContainer change={theme}>
         <PlayerContainer>
-          <ReactPlayer url={videoUrl} width="100%" height="80vh" />
+          <ReactPlayer url={videoUrl} width="100%" height={playerHeight} />
         </PlayerContainer>
         <TitleItem change={theme}>{title}</TitleItem>
         <ViewsLikesContainer>
@@ -201,19 +205,21 @@ const VideoDetailItem = props => {
         </ViewsLikesContainer>
         <LineThrough />
         <ChannelContainer>
-          <ProfileImage
-            src={channel.profileImageUrl}
-            alt="channel logo"
-           />
-          <ChannelContentContainer>
-            <ChannelName change={theme}>{channel.name}</ChannelName>
-            <ChannelSubs change={theme}>
-              {channel.subscriberCount} Subscribers
-            </ChannelSubs>
-            <ChannelDescription change={theme}>
-              {description}
-            </ChannelDescription>
-          </ChannelContentContainer>
+          <ChannelSubContainer>
+            <ProfileImage src={channel.profileImageUrl} alt="channel logo" />
+            <ChannelContentContainer>
+              <ChannelName change={theme}>{channel.name}</ChannelName>
+              <ChannelSubs change={theme}>
+                {channel.subscriberCount} Subscribers
+              </ChannelSubs>
+              <ChannelDescription change={theme}>
+                {description}
+              </ChannelDescription>
+            </ChannelContentContainer>
+          </ChannelSubContainer>
+          <ChannelSmallDescription change={theme}>
+            {description}
+          </ChannelSmallDescription>
         </ChannelContainer>
       </VideoDetailContainer>
     )

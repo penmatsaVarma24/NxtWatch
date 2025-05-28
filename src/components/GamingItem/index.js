@@ -26,7 +26,7 @@ const GamingItem = props => {
         <VideoContentContainer>
           <TitlePara change={theme}>{title}</TitlePara>
           <ViewsCountContainer>
-            <ViewsPara>{viewCount} Watch WorldWide</ViewsPara>
+            <ViewsPara>{viewCount} Watching WorldWide</ViewsPara>
           </ViewsCountContainer>
         </VideoContentContainer>
       </VideoContainer>

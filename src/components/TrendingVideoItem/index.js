@@ -12,6 +12,7 @@ import {
   ViewsPara,
   PublishPara,
   LinkItem,
+  ChannelSmallName,
 } from './styled'
 
 const TrendingVideoItem = props => {
@@ -36,6 +37,7 @@ const TrendingVideoItem = props => {
           <TitlePara change={theme}>{title}</TitlePara>
           <ChannelName>{channel.name}</ChannelName>
           <ViewsCountContainer>
+            <ChannelSmallName>{channel.name}</ChannelSmallName>
             <ViewsPara>{viewCount} Views</ViewsPara>
             <PublishPara>{publishedAt}</PublishPara>
           </ViewsCountContainer>

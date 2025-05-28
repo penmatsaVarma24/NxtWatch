@@ -16,28 +16,41 @@ export const ContentContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 80px; ;
+  margin-top: 80px;
 `
 
 export const SearchContainer = styled.div`
-  min-height: 130vh;
-  width: 80%;
-  margin-left: 300px;
-  background-color: #f1f1f1;
-  margin-top: 4px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
   background-color: ${props =>
     props.change === 'light' ? 'transparent' : 'transparent'};
+
+  @media (min-width: 768px) {
+    min-height: 130vh;
+    width: 80%;
+    margin-left: 20%;
+    margin-top: 4px;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+    align-items: center;
+  }
 `
 
 export const NavContainer = styled.div`
-  min-height: 90vh;
-  width: 20%;
-  position: fixed;
-  left: 0;
+  @media (min-width: 768px) {
+    min-height: 90vh;
+    width: 20%;
+    position: fixed;
+    left: 0;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 export const HomeHeaderContainer = styled.div`
@@ -56,21 +69,27 @@ export const HomeHeaderContainer = styled.div`
 export const BannerContainer = styled.div`
   background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
   background-size: cover;
-  height: 30vh;
   width: 100%;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
 `
 
 export const BannerContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 26%;
-  height: 25vh;
-  margin-left: 20px;
-  margin-top: 10px;
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 26%;
+    height: 25vh;
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 767px) {
+    width: 60%;
+  }
 `
 
 export const BannerLogo = styled.img`
@@ -91,6 +110,10 @@ export const BannerClose = styled.button`
   border: 0px;
   align-self: flex-start;
   cursor: pointer;
+
+  @media (max-width: 767px) {
+    cursor: pointer;
+  }
 `
 
 export const CloseLogo = styled(IoClose)`
@@ -98,21 +121,36 @@ export const CloseLogo = styled(IoClose)`
 `
 
 export const SearchInputContainer = styled.div`
-  margin-left: 30px;
   margin-top: 30px;
-  width: 60%;
   border: 1px solid #64748b;
   border-radius: 5px;
   background-color: ${props =>
     props.change === 'light' ? '#ffffff' : '#212121'};
+
+  @media (min-width: 768px) {
+    width: 60%;
+    margin-left: 30px;
+  }
+
+  @media (max-width: 767px) {
+    width: 90%;
+  }
 `
 
 export const SearchInput = styled.input`
   padding: 7px 16px 7px 16px;
   background-color: transparent;
-  width: 93%;
+
   border: 0px;
   outline: none;
+
+  @media (min-width: 768px) {
+    width: 93%;
+  }
+
+  @media (max-width: 767px) {
+    width: 90%;
+  }
 `
 
 export const SearchButton = styled.button`
@@ -137,7 +175,7 @@ export const VideosListContainer = styled.div`
 export const VideosUnorderedList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding-left: 0px;
 `

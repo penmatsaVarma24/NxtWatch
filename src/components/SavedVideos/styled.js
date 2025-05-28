@@ -14,14 +14,20 @@ export const ContentContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 80px; ;
+  margin-top: 65px; ;
 `
 
 export const NavContainer = styled.div`
-  min-height: 90vh;
-  width: 20%;
-  position: fixed;
-  left: 0;
+  @media (min-width: 768px) {
+    min-height: 90vh;
+    width: 20%;
+    position: fixed;
+    left: 0;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 export const SavedHeaderContainer = styled.div`
@@ -39,8 +45,6 @@ export const SavedHeaderContainer = styled.div`
 
 export const SavedDisplayContainer = styled.div`
   min-height: 100vh;
-  width: 80%;
-  margin-left: 300px;
   background-color: ${props =>
     props.change === 'light' ? '#f1f1f1' : '#181818'};
   margin-top: 4px;
@@ -48,16 +52,32 @@ export const SavedDisplayContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
+  @media (min-width: 768px) {
+    width: 80%;
+    margin-left: 20%;
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 export const SavedBanner = styled.div`
   background-color: ${props =>
     props.change === 'light' ? '#cccccc' : '#231f20'};
   width: 100%;
-  padding: 7px 40px 7px 40px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  @media (min-width: 768px) {
+    padding: 7px 40px 7px 40px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 7px 20px 7px 20px;
+  }
 `
 
 export const SavedListContainer = styled.div`
@@ -67,14 +87,28 @@ export const SavedListContainer = styled.div`
 export const SavedPara = styled.p`
   background-color: ${props =>
     props.change === 'light' ? '#cbd5e1' : '#000000'};
-  padding: 30px;
   border-radius: 50px;
   margin-right: 20px;
+
+  @media (min-width: 768px) {
+    padding: 30px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 15px;
+  }
 `
 
 export const SavedName = styled.h1`
-  font-size: 42px;
   color: ${props => (props.change === 'light' ? '#000000' : '#ffffff')};
+
+  @media (min-width: 768px) {
+    font-size: 42px;
+  }
+
+  @media (max-width: 767px) {
+    font-size: 28px;
+  }
 `
 
 export const SavedIcon = styled(FaFire)`
@@ -84,8 +118,6 @@ export const SavedIcon = styled(FaFire)`
 
 export const SavedEmptyContainer = styled.div`
   min-height: 100vh;
-  width: 80%;
-  margin-left: 300px;
   background-color: ${props =>
     props.change === 'light' ? '#f1f1f1' : '#181818'};
   margin-top: 4px;
@@ -93,11 +125,26 @@ export const SavedEmptyContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: 768px) {
+    width: 80%;
+    margin-left: 300px;
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 export const SavedEmptyImage = styled.img`
-  width: 30%;
-  margin-bottom: 20px;
+  @media (min-width: 768px) {
+    width: 30%;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 767px) {
+    width: 90%;
+  }
 `
 
 export const SavedEmptyHeading = styled.h1`

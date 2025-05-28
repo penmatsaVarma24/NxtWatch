@@ -54,7 +54,7 @@ const SavedVideos = () => {
       <SavedEmptyImage
         src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
         alt="no saved videos"
-       />
+      />
       <SavedEmptyHeading change={theme}>
         No saved Videos Found
       </SavedEmptyHeading>
